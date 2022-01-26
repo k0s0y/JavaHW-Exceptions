@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductRepositoryTest {
     Product first = new Book(1, "Fight Club", 500, "Chuck Palahniuk");
     Product second = new Book(2, "1984", 550, "George Orwell");
-    private ProductRepository repository = new ProductRepository();
-    private Book coreJava = new Book();
+    private final ProductRepository repository = new ProductRepository();
+    private final Book coreJava = new Book();
 
     @Test
     public void shouldSaveOneItem() {
@@ -28,7 +28,7 @@ class ProductRepositoryTest {
     public void shouldGiveExceptionIfDoseNotRemoveById() {
         repository.save(first);
         repository.save(second);
-        assertThrows(NotFoundException.class,()->repository.removeById(3));
+        assertThrows(NotFoundException.class, () -> repository.removeById(3));
     }
 
     @Test
@@ -39,18 +39,19 @@ class ProductRepositoryTest {
         Product[] actual = new Product[]{repository.findById(1)};
         assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldGiveExceptionIfDoseNotFindById() {
         repository.save(first);
         repository.save(second);
-        assertThrows(NotFoundException.class, ()->{repository.findById(3);});
+        assertThrows(NotFoundException.class, () -> repository.findById(3));
     }
 
     @Test
     public void shouldGiveExceptionIfNegativeValueInSearch() {
         repository.save(first);
         repository.save(second);
-        assertThrows(NegativeIdException.class, ()->{repository.removeById(-1);});
+        assertThrows(NegativeIdException.class, () -> repository.removeById(-1));
     }
 
     @Test
